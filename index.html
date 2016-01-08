@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+	<html>
+
+		<head>
+
+			<meta charset="UTF-8">
+		
+			<style>
+				body
+				{
+					font-family: 'Monospace';
+					background-color: black;
+					color: white;
+				}
+			</style>
+		
+			<script src="js/angular.min.js"></script>
+			
+
+		<!--SCRIPT 1 Get-Temas-->
+	<script>
+	  var app = angular.module('App-get-temas', []);
+	  app.controller("Ctrl-get-temas", function ($scope, $http)
+        {$http.get("http://0.0.0.0:3000/api/temas").then(function (response) {$scope.temas = response.data.records; } );});
+	</script>
+
+	</head>
+
+	<body ng-app="">
+		<h1>Granola</h1>
+		<h2>{{ "IoniChan dictatorial control app" }}</h2>
+
+		<section id="all" ng-app="App-get-temas" ng-controller="Ctrl-get-temas">
+			<h4>All</h4>
+			<h4>All the shit</h4>
+
+			<ul>
+				<li ng-repeat="x in temas">
+					{{ x }}
+				</li>
+			</ul>
+		</section>
+	
+		<section id="hot">
+			<h4>Hot</h4>
+			<h5>The most commented temas</h5>	
+
+		</section>
+
+		<section id="new">
+			<h4>New</h4>
+			<h5>The last temas created in the last hour</h5>
+		</section>	
+
+		<section id="reported">
+			<h4>Reported</h4>
+			<h5>The temas reported by the community</h5>
+		</section>
+
+		<section id="pics">
+			<h4>Pics</h4>
+			<h5>The last pics uploaded to the server</h5>	
+		</section>
+	</body>
+</html>
