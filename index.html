@@ -13,54 +13,60 @@
 					background-color: black;
 					color: white;
 				}
+
+				#all
+				{
+					display: flex; flex-direction: row; flex-wrap: wrap;
+				}
+
+				.post
+				{ border: white solid 1px; padding: 1%; margin: 1%;}
+
+				.post > p
+				{font-size: 12px;}
+			
+				#control-panel-palette
+				{ display: flex; justify-content: center; }
+				
+				#control-panel-palette > section
+				{margin: 1%; background-color: grey;}
+				
 			</style>
 		
 			<script src="js/angular.min.js"></script>
 			
 
-		<!--SCRIPT 1 Get-Temas-->
+		<!--SCRIPT 1 Get-Posts-->
 	<script>
-	  var app = angular.module('App-get-temas', []);
-	  app.controller("Ctrl-get-temas", function ($scope, $http)
-        {$http.get("http://0.0.0.0:3000/api/temas").then(function (response) {$scope.temas = response.data.records; } );});
+	  var app = angular.module('App-get-all-posts', []);
+	  app.controller("Ctrl-get-all-posts", function ($scope, $http)
+          {$http.get("http://0.0.0.0:3000/api/posts").then(function (response) {$scope.posts = response.data; } ) ; } ) ;
+
 	</script>
 
 	</head>
 
-	<body ng-app="">
-		<h1>Granola</h1>
-		<h2>{{ "IoniChan dictatorial control app" }}</h2>
+	<body>
+		<center><h1>Granola</h1></center>
+		<center><h2>IoniChan dictatorial control app</h2></center>
+		<center><h3>Keeping the community onder control according our twisted desires since the beggining</h3></center>
+		
+		<h4>Control Panel</h4>
+		<section id="control-panel-palette">
+			<section>Create new post</section>
+			<section>New Announce</section>
+		</section>		
 
-		<section id="all" ng-app="App-get-temas" ng-controller="Ctrl-get-temas">
-			<h4>All</h4>
-			<h4>All the shit</h4>
+		<h4>All the posts</h4>
+		<h5>All the new content created order by date</h5>
+		<section id="all" ng-app="App-get-all-posts" ng-controller="Ctrl-get-all-posts">
 
-			<ul>
-				<li ng-repeat="x in temas">
-					{{ x }}
-				</li>
-			</ul>
+			<div class="post" ng-repeat="post in posts">
+				<h4>{{ post.titulo }}</h4>
+				<h5>{{post.fecha}}</h5>
+				<p>{{ post.contenido }}</p>
+			</div>
 		</section>
 	
-		<section id="hot">
-			<h4>Hot</h4>
-			<h5>The most commented temas</h5>	
-
-		</section>
-
-		<section id="new">
-			<h4>New</h4>
-			<h5>The last temas created in the last hour</h5>
-		</section>	
-
-		<section id="reported">
-			<h4>Reported</h4>
-			<h5>The temas reported by the community</h5>
-		</section>
-
-		<section id="pics">
-			<h4>Pics</h4>
-			<h5>The last pics uploaded to the server</h5>	
-		</section>
 	</body>
 </html>
